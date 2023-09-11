@@ -1,5 +1,6 @@
 use crate::errors::Result;
 use crate::models::playbacks::Playback;
+use crate::models::channels::DialplanCep;
 use async_trait::async_trait;
 
 #[async_trait]
@@ -29,5 +30,5 @@ pub trait ChannelsAPI {
     async fn hangup(&self, channel_id: &str) -> Result<()>;
 
     /// Exit application; continue execution in the dialplan
-    async fn continue_in_dialplan(&self, channel_id: &str) -> Result<()>;
+    async fn continue_in_dialplan(&self, channel_id: &str, context: Option<&DialplanCep>) -> Result<()>;
 }

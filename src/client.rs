@@ -2,6 +2,7 @@ use crate::apis::{applications::ApplicationsAPI, channels::ChannelsAPI};
 use crate::errors::{Error, Result};
 use crate::models::applications::Application;
 use crate::models::channels::Variable;
+use crate::models::channels::DialplanCep;
 use crate::models::events::*;
 use crate::models::playbacks::Playback;
 use async_trait::async_trait;
@@ -512,9 +513,12 @@ impl ChannelsAPI for AriClient {
         Ok(())
     }
 
-    async fn continue_in_dialplan(&self, channel_id: &str) -> Result<()> {
+    async fn continue_in_dialplan(&self, channel_id: &str, context: Option<&DialplanCep>) -> Result<()> {
+        let req_body_str = serde_json::to_string(&context).expect("Serialization failed");
+
         let resp = HTTP_CLIENT
             .post(format!("{}/channels/{}/continue", self.url, channel_id))
+            .body(req_body_str)
             .headers(self.get_common_headers()?)
             .send()
             .await?;
