@@ -96,10 +96,10 @@ pub struct DialplanCep {
     pub priority: i64,
 
     /// Name of current dialplan application
-    pub app_name: String,
+    pub app_name: Option<String>,
 
     /// Parameter of current dialplan application
-    pub app_data: String,
+    pub app_data: Option<String>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
