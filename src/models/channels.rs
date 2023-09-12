@@ -102,6 +102,18 @@ pub struct DialplanCep {
     pub app_data: Option<String>,
 }
 
+impl Default for DialplanCep {
+    fn default() -> Self {
+        Self {
+            context: String::from(""),
+            exten: String::from(""),
+            priority: 1,
+            app_name: None,
+            app_data: None,
+        }
+    }
+}
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RtPstat {
     pub txcount: i64,
