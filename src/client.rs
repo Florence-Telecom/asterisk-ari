@@ -514,7 +514,7 @@ impl ChannelsAPI for AriClient {
     }
 
     async fn continue_in_dialplan(&self, channel_id: &str, context: Option<&DialplanCep>) -> Result<()> {
-        let req_body_str = serde_json::to_string(&context).expect("Serialization failed");
+        let req_body_str = serde_json::to_string(&context)?;
 
         let resp = HTTP_CLIENT
             .post(format!("{}/channels/{}/continue", self.url, channel_id))
